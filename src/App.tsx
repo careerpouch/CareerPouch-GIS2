@@ -469,6 +469,7 @@ export default function App() {
         else if (hash === '#contact' || hash === '#/contact') pageId = 'contact';
         else if (hash === '#blog' || hash === '#/blog') pageId = 'blog';
         else if (hash === '#about' || hash === '#/about') pageId = 'about';
+        else if (hash.includes('state=blogger_automation') || hash.includes('access_token')) pageId = 'blog';
       }
       if (!pageId && pathname) {
         if (pathname === '/privacy' || pathname === '/privacy-policy') pageId = 'privacy';

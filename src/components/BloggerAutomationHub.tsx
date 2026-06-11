@@ -100,6 +100,7 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
         // Clear hash from URL cleanly
         window.history.replaceState(null, '', window.location.pathname + window.location.search);
         setSuccessMsg('Successfully linked with your Google credentials!');
+        setErrorMsg('');
       }
     }
   }, []);
@@ -123,11 +124,13 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
             email: data.email || 'api@blogger.com',
             picture: data.picture || ''
           });
+          setErrorMsg('');
         } else if (response.status === 401) {
           // Token expired
           setAccessToken('');
           sessionStorage.removeItem('cp_blogger_access_token');
           setErrorMsg('Your Google connection token has expired. Please re-authenticate.');
+          setSuccessMsg('');
         }
       } catch (e) {
         console.error('Error fetching user info:', e);
@@ -205,6 +208,7 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
   const handleConnect = () => {
     if (!clientId) {
       setErrorMsg('Google OAuth Client ID is missing. Please set VITE_BLOGGER_CLIENT_ID in your deployment panel.');
+      setSuccessMsg('');
       return;
     }
     setErrorMsg('');
@@ -221,6 +225,7 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
     sessionStorage.removeItem('cp_blogger_access_token');
     setUserInfo(null);
     setSuccessMsg('Successfully disconnected from Blogger API.');
+    setErrorMsg('');
   };
 
   // Publish specific tool to Blogger
@@ -229,7 +234,8 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
       if (isAutomatic) {
         console.warn('Scheduled publish skipped: No access token or Blog ID found.');
       } else {
-        setErrorMsg('You must authenticating your Google account and set up a valid Blogger Blog ID first!');
+        setErrorMsg('You must authenticate your Google account and set up a valid Blogger Blog ID first!');
+        setSuccessMsg('');
       }
       return;
     }
@@ -269,6 +275,7 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
         setPublishedHistory(prev => [successLog, ...prev]);
         setPublishStatus('success');
         setSuccessMsg(`"${tool.name}" was successfully posted on Blogger!`);
+        setErrorMsg('');
 
         // Update loop variables (cycles back to 0 if out of limits)
         const nextIndex = (currentQueueIndex + 1) % TOOLS.length;
@@ -281,10 +288,12 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
         const err = await response.json();
         setPublishStatus('error');
         setErrorMsg(err?.error?.message || 'Publication failed. Verify your Blogger API permissions.');
+        setSuccessMsg('');
       }
     } catch (e) {
       setPublishStatus('error');
       setErrorMsg('Network error occurred during publication. Please try again.');
+      setSuccessMsg('');
       console.error(e);
     }
   };
@@ -346,12 +355,17 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
               </button>
             </div>
           ) : (
-            <button 
-              onClick={handleConnect}
-              className="px-3 py-1.5 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white rounded-lg text-xs font-bold shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
-            >
-              Sign In with Google
-            </button>
+            <div className="flex flex-col items-end gap-1.5">
+              <button 
+                onClick={handleConnect}
+                className="px-3 py-1.5 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white rounded-lg text-xs font-bold shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+              >
+                Sign In with Google
+              </button>
+              <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono text-right max-w-[200px] leading-tight">
+                Requires <code className="text-indigo-400 select-all font-bold">{window.location.origin + window.location.pathname}</code> in GCP "Authorized redirect URIs"
+              </div>
+            </div>
           )}
         </div>
       </div>
@@ -406,6 +420,7 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
                 onClick={() => {
                   if (!accessToken || !blogId) {
                     setErrorMsg('Please connect your Google Account and set Blog ID to activate scheduler.');
+                    setSuccessMsg('');
                     return;
                   }
                   setIsAutoActive(!isAutoActive);

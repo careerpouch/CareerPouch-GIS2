@@ -125,14 +125,18 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
             picture: data.picture || ''
           });
           setErrorMsg('');
-        } else if (response.status === 401) {
-          // Token expired
+        } else {
+          // Token expired or invalid
           setAccessToken('');
           sessionStorage.removeItem('cp_blogger_access_token');
-          setErrorMsg('Your Google connection token has expired. Please re-authenticate.');
+          setErrorMsg('Your Google connection token is invalid or has expired. Please re-authenticate.');
           setSuccessMsg('');
         }
       } catch (e) {
+        setAccessToken('');
+        sessionStorage.removeItem('cp_blogger_access_token');
+        setErrorMsg('Network error occurred verifying Google connection. Please re-authenticate.');
+        setSuccessMsg('');
         console.error('Error fetching user info:', e);
       }
     };
@@ -504,12 +508,85 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
                   </div>
                 </div>
 
-                <div className="p-2.5 bg-slate-50 dark:bg-slate-900 text-[10px] text-slate-500 dark:text-slate-400 rounded-lg space-y-1">
-                  <p className="font-bold flex items-center gap-1 text-slate-700 dark:text-slate-300"><Sparkles className="w-3 h-3 text-indigo-500" /> Redirect URI Config:</p>
-                  <p>When creating your Client ID (Web App), match authorized callback to:</p>
-                  <code className="block bg-white dark:bg-black p-1 rounded border border-slate-150 dark:border-slate-850 text-[9px] overflow-x-auto text-indigo-500 font-mono">
-                    {window.location.origin + window.location.pathname}
-                  </code>
+                <div className="p-3 bg-slate-50 dark:bg-slate-950 text-[10.5px] text-slate-650 dark:text-slate-400 rounded-xl space-y-2 border border-slate-100 dark:border-slate-850">
+                  <p className="font-extrabold flex items-center gap-1 text-slate-700 dark:text-slate-300">
+                    <Sparkles className="w-3 h-3 text-indigo-500 shrink-0" />
+                    Interactive GCP Auth Console Helper:
+                  </p>
+                  <p className="leading-relaxed">
+                    Google has migrated to the new <strong>Google Auth Platform</strong> layout. Navigate to these 3 direct tabs on your GCP Console:
+                  </p>
+                  
+                  <div className="space-y-2 pt-1">
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between gap-1">
+                        <span className="font-bold text-[9.5px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Step 1: Client Settings</span>
+                        <a 
+                          href="https://console.cloud.google.com/auth/clients" 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="text-[9.5px] font-black font-mono text-indigo-500 hover:underline flex items-center gap-0.5 shrink-0"
+                        >
+                          Open Clients Tab ↗
+                        </a>
+                      </div>
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">
+                        Click your Client ID (<strong>CareerPouch Blogger client</strong>) and configure:
+                      </p>
+                      <div className="space-y-1 pl-2 font-mono text-[9px] mt-1">
+                        <div>
+                          <span className="text-slate-400">Authorized JS Origin:</span>
+                          <code className="block bg-white dark:bg-slate-900 p-1 rounded border border-slate-150 dark:border-slate-800 select-all font-bold text-indigo-550 dark:text-indigo-400">
+                            {window.location.origin}
+                          </code>
+                        </div>
+                        <div>
+                          <span className="text-slate-400">Authorized Redirect URI:</span>
+                          <code className="block bg-white dark:bg-slate-900 p-1 rounded border border-slate-150 dark:border-slate-800 select-all font-bold text-indigo-550 dark:text-indigo-400">
+                            {window.location.origin + window.location.pathname}
+                          </code>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="pt-1.5 border-t border-slate-100 dark:border-slate-850 space-y-1">
+                      <div className="flex items-center justify-between gap-1">
+                        <span className="font-bold text-[9.5px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Step 2: Authorized Domains</span>
+                        <a 
+                          href="https://console.cloud.google.com/auth/branding" 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="text-[9.5px] font-black font-mono text-indigo-500 hover:underline flex items-center gap-0.5 shrink-0"
+                        >
+                          Open Branding Tab ↗
+                        </a>
+                      </div>
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">
+                        Scroll down to <strong>Authorized domains</strong>, click <strong>+ Add domain</strong> and paste (without https:// prefix):
+                      </p>
+                      <code className="block bg-white dark:bg-slate-900 p-1 pl-2 rounded border border-slate-150 dark:border-slate-800 mt-1 select-all font-mono font-bold text-indigo-550 dark:text-indigo-400 text-[9px]">
+                        {window.location.hostname}
+                      </code>
+                      <p className="text-[9px] text-amber-500 font-medium">⚠️ Crucial: Be sure to hit the "Save" button at the very bottom of the Branding page!</p>
+                    </div>
+
+                    <div className="pt-1.5 border-t border-slate-100 dark:border-slate-850 space-y-1">
+                      <div className="flex items-center justify-between gap-1">
+                        <span className="font-bold text-[9.5px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Step 3: Test Users</span>
+                        <a 
+                          href="https://console.cloud.google.com/auth/audience" 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="text-[9.5px] font-black font-mono text-indigo-500 hover:underline flex items-center gap-0.5 shrink-0"
+                        >
+                          Open Audience Tab ↗
+                        </a>
+                      </div>
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">
+                        While Google Verification is pending, ensure your email address (<strong>{window.location.origin.includes('google') ? 'your-email@gmail.com' : 'careerpouchofficial@gmail.com'}</strong>) is added under the test users!
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}

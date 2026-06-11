@@ -39,6 +39,7 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
     }
     return 'https://careerpouch.com';
   });
+  const [adsterraPostKey, setAdsterraPostKey] = useState(() => localStorage.getItem('cp_blogger_adsterra_post_key') || '<script async="async" data-cfasync="false" src="https://pl29714375.effectivecpmnetwork.com/36df5e51f58bf24ea901a7de45c318f9/invoke.js"></script><div id="container-36df5e51f58bf24ea901a7de45c318f9"></div>');
   const [accessToken, setAccessToken] = useState(() => sessionStorage.getItem('cp_blogger_access_token') || '');
   
   // Automation loop states
@@ -80,6 +81,10 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
   useEffect(() => {
     localStorage.setItem('cp_blogger_target_url', targetUrl);
   }, [targetUrl]);
+
+  useEffect(() => {
+    localStorage.setItem('cp_blogger_adsterra_post_key', adsterraPostKey);
+  }, [adsterraPostKey]);
 
   useEffect(() => {
     localStorage.setItem('cp_blogger_queue_index', currentQueueIndex.toString());
@@ -209,6 +214,21 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
       imageUrl = 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&auto=format&fit=crop';
     }
 
+    let adHtml = '';
+    if (adsterraPostKey) {
+      if (adsterraPostKey.includes('<script') || adsterraPostKey.includes('<div') || adsterraPostKey.includes('src=')) {
+        adHtml = `
+  <div style="margin: 25px auto; text-align: center; max-width: 100%;">
+    ${adsterraPostKey}
+  </div>`;
+      } else {
+        adHtml = `
+  <div style="margin: 25px auto; text-align: center; max-width: 100%;">
+    <iframe srcdoc="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;style&gt;html,body{margin:0;padding:0;overflow:hidden;display:flex;align-items:center;justify-content:center;background:transparent;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;script type='text/javascript'&gt;var atOptions={'key':'${adsterraPostKey}','format':'iframe','height':90,'width':728,'params':{}};&lt;/script&gt;&lt;script type='text/javascript' src='https://www.highperformanceformat.com/${adsterraPostKey}/invoke.js'&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;" style="width:728px;height:90px;max-width:100%;border:none;overflow:hidden;background:transparent;margin:0 auto;display:block;" scrolling="no"&gt;&lt;/iframe&gt;
+  </div>`;
+      }
+    }
+
     return `
 <div style="font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; max-width: 650px; margin: 0 auto; color: #334155; line-height: 1.7; padding: 10px 0;">
   <div style="text-align: center; margin-bottom: 30px;">
@@ -232,6 +252,8 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
     <li style="margin-bottom: 10px; line-height: 1.6;"><strong>Instant Productivity Gains:</strong> Access beautiful UI layouts, formatted results, and automated calculations in just one click.</li>
     <li style="margin-bottom: 10px; line-height: 1.6;"><strong>Completely Free & Uncapped:</strong> Avoid paywalls and annoying limits. Use any of the ${TOOLS.length}+ available builders anytime.</li>
   </ul>
+
+  ${adHtml}
 
   <h2 style="font-size: 21px; font-weight: 800; color: #0f172a; margin-top: 30px; margin-bottom: 15px; letter-spacing: -0.015em;">Run It Instantly Inside CareerPouch</h2>
   <p style="font-size: 14.5px; color: #334155; margin-bottom: 30px; line-height: 1.6;">Get direct, unrestricted sandbox access to the official <strong>${tool.name}</strong> toolkit. Ready to bootstrap your development velocity?</p>
@@ -553,6 +575,23 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
                       onChange={(e) => setTargetUrl(e.target.value.trim())}
                       className="w-full text-xs p-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                     />
+                  </div>
+
+                  <div>
+                    <label className="block text-[9px] font-bold font-mono text-slate-400 dark:text-slate-500 uppercase mb-1 flex items-center justify-between">
+                      <span>Adsterra Blog Post Ad Script or Key</span>
+                      <span className="text-[8px] text-amber-500 dark:text-amber-400 normal-case font-medium">Auto-inserts banner or script code in published posts</span>
+                    </label>
+                    <textarea 
+                      rows={3}
+                      placeholder="Paste your Blogger Adsterra raw script tags here or enter a 8-digit key (leave blank to disable)"
+                      value={adsterraPostKey}
+                      onChange={(e) => setAdsterraPostKey(e.target.value)}
+                      className="w-full text-xs p-2 rounded-lg bg-neutral-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 font-mono focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    />
+                    <p className="text-[9px] text-red-500/70 dark:text-red-400/60 mt-1 font-sans leading-tight">
+                      ⚠️ <strong>Compliance Safety:</strong> Paste script tags generated specifically for your blog spot/blogger custom domain. Never reuse standard CareerPouch keys to avoid account penalties.
+                    </p>
                   </div>
                 </div>
 

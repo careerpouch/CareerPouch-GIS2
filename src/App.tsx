@@ -252,6 +252,14 @@ export default function App() {
   const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
   const [activeInfoPage, setActiveInfoPage] = useState<'privacy' | 'tos' | 'contact' | 'blog' | 'about' | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false); // Light Mode Default
+  const [isAdmin, setIsAdmin] = useState(() => {
+    return localStorage.getItem('cp_admin_mode') === 'true';
+  });
+  const isDeveloperMode = typeof window !== 'undefined' && (
+    window.location.hostname.includes('run.app') ||
+    window.location.hostname.includes('localhost') ||
+    window.location.hostname.includes('127.0.0.1')
+  );
   const [isStickyAdVisible, setIsStickyAdVisible] = useState(true);
   const prevScrollPosRef = useRef<number>(0);
 
@@ -438,6 +446,19 @@ export default function App() {
       const pathname = window.location.pathname;
       const hash = window.location.hash;
       const params = new URLSearchParams(window.location.search);
+      
+      // Admin activation check
+      const adminParam = params.get('admin');
+      if (adminParam === 'true') {
+        localStorage.setItem('cp_admin_mode', 'true');
+        setIsAdmin(true);
+        // Clean URL to hide the parameter from general view
+        const newUrl = window.location.origin + window.location.pathname + (params.get('page') ? `?page=${params.get('page')}` : '');
+        window.history.replaceState(null, '', newUrl);
+      } else if (adminParam === 'false') {
+        localStorage.removeItem('cp_admin_mode');
+        setIsAdmin(false);
+      }
       
       let toolId = params.get('tool');
       let pageId = params.get('page');
@@ -695,47 +716,7 @@ export default function App() {
       {/* Primary elevate wrapper */}
       <div className="relative z-10 flex flex-col min-h-screen">
 
-        {/* Global Navigation Header to easily navigate to the Blogger Hub */}
-        <header className={`sticky top-0 z-40 backdrop-blur-md border-b transition-all ${
-          isDarkMode 
-            ? 'bg-slate-950/80 border-slate-900 text-white shadow-lg shadow-black/10' 
-            : 'bg-white/80 border-slate-200 text-slate-900 shadow-sm'
-        }`}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div className="flex items-center gap-6">
-              <a 
-                href="/" 
-                onClick={(e) => { 
-                  e.preventDefault(); 
-                  handleResetToHome(); 
-                }} 
-                className="flex items-center gap-2 group cursor-pointer"
-              >
-                <div className="w-8 h-8 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center shadow-md shadow-indigo-505/20 group-hover:scale-105 transition-transform">
-                  <span className="text-white text-sm font-black">CP</span>
-                </div>
-                <span className="text-xl font-black bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent transform group-hover:translate-x-0.5 transition-transform">
-                  CareerPouch
-                </span>
-              </a>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <button
-                onClick={() => handleSelectInfoPage('blog')}
-                className={`px-4 py-2 rounded-xl text-xs font-black transition-all duration-300 flex items-center gap-1.5 shadow-md hover:scale-105 active:scale-95 cursor-pointer border ${
-                  activeInfoPage === 'blog'
-                    ? 'bg-gradient-to-r from-indigo-600 to-violet-600 border-indigo-500 text-white shadow-indigo-500/20'
-                    : 'bg-amber-500 hover:bg-amber-600 text-slate-950 border-amber-400 font-bold shadow-amber-500/10'
-                }`}
-              >
-                <span>📚 Guides & Blog</span>
-              </button>
-            </div>
-          </div>
-        </header>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6 space-y-10">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-6 space-y-10">
         
         {/* INFO SPECIFIC ROUTED PAGES (Privacy, TOS, Contact, Blog, About) */}
         {activeInfoPage && (
@@ -979,8 +960,10 @@ export default function App() {
                   </p>
                 </div>
 
-                {/* Secure Client-Side Blogger Automation Interface */}
-                <BloggerAutomationHub isDarkMode={isDarkMode} appUrl={window.location.origin} />
+                {/* Secure Client-Side Blogger Automation Interface (Visible only to verified Admins or in developer mode) */}
+                {(isAdmin || isDeveloperMode) && (
+                  <BloggerAutomationHub isDarkMode={isDarkMode} appUrl={window.location.origin} />
+                )}
 
                 {/* List of 4 Articles */}
                 <div className="space-y-8">
@@ -1906,12 +1889,15 @@ export default function App() {
                 <li>
                   <a href="?page=contact" onClick={(e) => { e.preventDefault(); handleSelectInfoPage('contact'); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">Contact Us</a>
                 </li>
-                <li>
-                  <a href="?page=blog" onClick={(e) => { e.preventDefault(); handleSelectInfoPage('blog'); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">Guides & Blog</a>
-                </li>
+
                 <li>
                   <a href="?page=about" onClick={(e) => { e.preventDefault(); handleSelectInfoPage('about'); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">About CareerPouch</a>
                 </li>
+                {isDeveloperMode && (
+                  <li>
+                    <a href="?page=blog" onClick={(e) => { e.preventDefault(); handleSelectInfoPage('blog'); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">Blogger Auto Hub</a>
+                  </li>
+                )}
               </ul>
             </div>
 

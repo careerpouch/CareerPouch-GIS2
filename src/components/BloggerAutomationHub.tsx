@@ -32,7 +32,13 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
   // Developer Overrides (Subtle & optional, loaded from Env first then localStorage)
   const [clientId, setClientId] = useState(() => import.meta.env.VITE_BLOGGER_CLIENT_ID || localStorage.getItem('cp_blogger_client_id') || '');
   const [blogId, setBlogId] = useState(() => import.meta.env.VITE_BLOGGER_BLOG_ID || localStorage.getItem('cp_blogger_blog_id') || '');
-  const [targetUrl, setTargetUrl] = useState(() => localStorage.getItem('cp_blogger_target_url') || appUrl || 'https://careerpouch.com');
+  const [targetUrl, setTargetUrl] = useState(() => {
+    const saved = localStorage.getItem('cp_blogger_target_url');
+    if (saved && saved.includes('careerpouch.com')) {
+      return saved;
+    }
+    return 'https://careerpouch.com';
+  });
   const [accessToken, setAccessToken] = useState(() => sessionStorage.getItem('cp_blogger_access_token') || '');
   
   // Automation loop states
@@ -182,8 +188,9 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
 
   // Dynamic Blog Post Content HTML Generator
   const generatePostHtml = (tool: Tool) => {
-    const toolLink = `${targetUrl}/?tool=${tool.id}`;
-    const suiteLink = targetUrl;
+    const cleanUrl = targetUrl.replace(/\/$/, '');
+    const toolLink = `${cleanUrl}/tools/${tool.id}`;
+    const suiteLink = cleanUrl;
     
     let imageUrl = 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200&auto=format&fit=crop';
     if (tool.category === 'career') {

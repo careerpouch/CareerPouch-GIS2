@@ -87,20 +87,45 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
     localStorage.setItem('cp_blogger_published_history', JSON.stringify(publishedHistory));
   }, [publishedHistory]);
 
-  // Read URL Hash for implicit OAuth Redirect
+  // Read URL Hash and Search for implicit OAuth Redirect/Errors
   useEffect(() => {
     const hash = window.location.hash;
-    if (hash && hash.includes('access_token')) {
+    const search = window.location.search;
+    
+    let token: string | null = null;
+    let state: string | null = null;
+    let oauthError: string | null = null;
+    
+    if (hash) {
       const params = new URLSearchParams(hash.replace('#', '?'));
-      const token = params.get('access_token');
-      const state = params.get('state');
-      if (token && state === 'blogger_automation') {
+      token = params.get('access_token');
+      state = params.get('state');
+      oauthError = params.get('error');
+    }
+    
+    if (!token && !oauthError && search) {
+      const params = new URLSearchParams(search);
+      token = params.get('access_token');
+      state = params.get('state');
+      oauthError = params.get('error');
+    }
+    
+    if (state === 'blogger_automation') {
+      if (token) {
         setAccessToken(token);
         sessionStorage.setItem('cp_blogger_access_token', token);
-        // Clear hash from URL cleanly
-        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+        // Clear hash/search cleanly
+        window.history.replaceState(null, '', window.location.pathname);
         setSuccessMsg('Successfully linked with your Google credentials!');
         setErrorMsg('');
+      } else if (oauthError) {
+        window.history.replaceState(null, '', window.location.pathname);
+        if (oauthError === 'access_denied') {
+          setErrorMsg('Access blocked: Access Denied. Please verify that your email (careerpouchofficial@gmail.com) is in the "Test Users" section of the "Audience" tab in your Google Cloud Google Auth platform console.');
+        } else {
+          setErrorMsg(`Google OAuth error: ${oauthError}. Please re-authenticate.`);
+        }
+        setSuccessMsg('');
       }
     }
   }, []);
@@ -125,19 +150,30 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
             picture: data.picture || ''
           });
           setErrorMsg('');
-        } else {
-          // Token expired or invalid
+        } else if (response.status === 401) {
+          // Token is definitively expired or invalid
           setAccessToken('');
           sessionStorage.removeItem('cp_blogger_access_token');
-          setErrorMsg('Your Google connection token is invalid or has expired. Please re-authenticate.');
+          setErrorMsg('Your Google connection token has expired. Please re-authenticate.');
           setSuccessMsg('');
+        } else {
+          // Fall back gracefully with Connected status instead of revoking a working Blogger token on 403 Forbidden profile reads!
+          console.warn('Profile fetch returned non-OK status but token is kept active for Blogger integration:', response.status);
+          setUserInfo({
+            name: 'Blogger Admin',
+            email: 'Connected (Limited profile access)',
+            picture: ''
+          });
+          setErrorMsg('');
         }
       } catch (e) {
-        setAccessToken('');
-        sessionStorage.removeItem('cp_blogger_access_token');
-        setErrorMsg('Network error occurred verifying Google connection. Please re-authenticate.');
-        setSuccessMsg('');
-        console.error('Error fetching user info:', e);
+        // Network/CORS issues - do NOT revoke the token since it can still publish posts!
+        console.error('Network error fetching profile user info (Blogger Token remains active):', e);
+        setUserInfo({
+          name: 'Blogger Admin',
+          email: 'Connected (No connection info)',
+          picture: ''
+        });
       }
     };
 
@@ -217,8 +253,13 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
     }
     setErrorMsg('');
     const redirectUri = window.location.origin + window.location.pathname;
-    const scope = 'https://www.googleapis.com/auth/blogger';
+    // Request blogger scope + userinfo scopes (for seamless profile validation)
+    const scope = 'https://www.googleapis.com/auth/blogger https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
     const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=${encodeURIComponent(scope)}&state=blogger_automation`;
+    
+    // Clear alerts to refresh signin screen
+    setErrorMsg('');
+    setSuccessMsg('Redirecting to Google Sign-In...');
     
     // Redirect cleanly
     window.location.href = authUrl;

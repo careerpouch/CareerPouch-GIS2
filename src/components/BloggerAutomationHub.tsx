@@ -217,14 +217,20 @@ export function BloggerAutomationHub({ isDarkMode, appUrl }: { isDarkMode: boole
     let adHtml = '';
     if (adsterraPostKey) {
       if (adsterraPostKey.includes('<script') || adsterraPostKey.includes('<div') || adsterraPostKey.includes('src=')) {
+        const escapedContent = adsterraPostKey
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
         adHtml = `
-  <div style="margin: 25px auto; text-align: center; max-width: 100%;">
-    ${adsterraPostKey}
+  <div style="margin: 25px auto; text-align: center; max-width: 100%; display: flex; justify-content: center;">
+    <iframe srcdoc="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;style&gt;html,body{margin:0;padding:0;overflow:hidden;display:flex;align-items:center;justify-content:center;background:transparent;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;${escapedContent}&lt;/body&gt;&lt;/html&gt;" style="width:728px;height:90px;max-width:100%;border:none;overflow:hidden;background:transparent;margin:0 auto;display:block;" scrolling="no"></iframe>
   </div>`;
       } else {
         adHtml = `
-  <div style="margin: 25px auto; text-align: center; max-width: 100%;">
-    <iframe srcdoc="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;style&gt;html,body{margin:0;padding:0;overflow:hidden;display:flex;align-items:center;justify-content:center;background:transparent;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;script type='text/javascript'&gt;var atOptions={'key':'${adsterraPostKey}','format':'iframe','height':90,'width':728,'params':{}};&lt;/script&gt;&lt;script type='text/javascript' src='https://www.highperformanceformat.com/${adsterraPostKey}/invoke.js'&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;" style="width:728px;height:90px;max-width:100%;border:none;overflow:hidden;background:transparent;margin:0 auto;display:block;" scrolling="no"&gt;&lt;/iframe&gt;
+  <div style="margin: 25px auto; text-align: center; max-width: 100%; display: flex; justify-content: center;">
+    <iframe srcdoc="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;style&gt;html,body{margin:0;padding:0;overflow:hidden;display:flex;align-items:center;justify-content:center;background:transparent;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;script type='text/javascript'&gt;var atOptions={'key':'${adsterraPostKey}','format':'iframe','height':90,'width':728,'params':{}};&lt;/script&gt;&lt;script type='text/javascript' src='https://www.highperformanceformat.com/${adsterraPostKey}/invoke.js'&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;" style="width:728px;height:90px;max-width:100%;border:none;overflow:hidden;background:transparent;margin:0 auto;display:block;" scrolling="no"></iframe>
   </div>`;
       }
     }

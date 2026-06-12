@@ -89,7 +89,7 @@ export const TextTools: React.FC<TextToolsProps> = ({ toolId }) => {
 
 
   // ---- 4. MARKDOWN LIVE PREVIEW EDITOR ----
-  const [mdInput, setMdInput] = useState("# CareerPouch Platform\n\nWelcome to your **professional static toolkit**. \n\n### Key Elements:\n- Built with high-fidelity Tailwind v4\n- Completely static browser memory states\n- 41 client interactive utilities ready for production");
+  const [mdInput, setMdInput] = useState("# CareerPouch Platform\n\nWelcome to your **professional static toolkit**. \n\n### Key Elements:\n- Built with high-fidelity Tailwind v4\n- Completely static browser memory states\n- 112 client interactive utilities ready for production");
 
   const parseMarkdownSimple = () => {
     // Basic structural translation for common entities (Headings, lists, bold)

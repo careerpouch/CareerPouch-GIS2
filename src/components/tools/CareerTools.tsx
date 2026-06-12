@@ -1623,20 +1623,20 @@ Familiar with basic Agile team methods but looking to grow.`);
           <div className="flex items-center gap-2">
             <button
               onClick={() => setActiveTab('edit')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border ${
                 activeTab === 'edit'
-                  ? 'bg-slate-700 text-teal-400 border border-teal-500/20'
-                  : 'bg-slate-800/50 text-slate-400 hover:text-slate-200'
+                  ? 'bg-slate-700 text-teal-400 border-teal-500/20'
+                  : 'bg-slate-800/50 text-slate-400 hover:text-slate-200 border-transparent'
               }`}
             >
               Configure Details
             </button>
             <button
               onClick={() => setActiveTab('preview')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border ${
                 activeTab === 'preview'
-                  ? 'bg-slate-700 text-teal-400 border border-teal-500/20'
-                  : 'bg-slate-800/50 text-slate-400 hover:text-slate-200'
+                  ? 'bg-slate-700 text-teal-400 border-teal-500/20'
+                  : 'bg-slate-800/50 text-slate-400 hover:text-slate-200 border-transparent'
               }`}
             >
               Interactive Preview

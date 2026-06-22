@@ -423,6 +423,286 @@ export function AppContent() {
       'ai-bg-remover': {
         name: 'مزيل خلفية صورة السيرة محلياً',
         description: 'افصل فوراً خلفية صورتك الشخصية واجعلها بيضاء أو شفافة لتناسب قوالب السير الرسمية.'
+      },
+      'case-converter': {
+        name: 'محول حالة الأحرف الإنجليزية',
+        description: 'قم بتحويل الكلمات والعبارات الإنجليزية على الفور بين camelCase و kebab-case و SNAKE_CASE وغيرها.'
+      },
+      'csv-json': {
+        name: 'محول الحقول CSV إلى JSON وبالعكس',
+        description: 'قم بتحويل بيانات الجداول والصفوف CSV إلى مصفوفات هيكلية من نوع JSON بكل سهولة.'
+      },
+      'epoch-converter': {
+        name: 'محول توقيت إيبوك ويونكس الحقيقي',
+        description: 'حول الطوابع الزمنية الرقمية (Epoch Timestamp) إلى تواريخ بشرية مقروءة وبالعكس تفاعلياً.'
+      },
+      'json-sql': {
+        name: 'محول كتل JSON إلى استعلامات SQL',
+        description: 'أنتج استعلامات إدخال وتعديل لقواعد البيانات SQL مباشرة من مصفوفات JSON المهيكلة.'
+      },
+      'jwt-inspector': {
+        name: 'مفتش ومحلل رموز الأمان JWT',
+        description: 'قم بفك وتحليل رموز الهوية والأمان JSON Web Tokens بشكل محلي تماماً لفحص كتل البيانات المضمنة.'
+      },
+      'xml-json': {
+        name: 'محول بنى XML إلى سجلات JSON',
+        description: 'تداول بنى البيانات الهرمية ونظف ملفات XML وحولها إلى صيغ JSON الحديثة وبالعكس.'
+      },
+      'currency-calc': {
+        name: 'حاسبة أسعار العملات الفورية',
+        description: 'احسب عمليات الصرف للعملات الدولية والخليجية ومقارنة القوة الشرائية بأسعار مخصصة محلياً.'
+      },
+      'unit-converter': {
+        name: 'محول الوحدات القياسية الشامل',
+        description: 'حول القياسات والأطوال والكتل والمساحات وحجوم البيانات بسلاسة متكاملة.'
+      },
+      'crypto-gas-converter': {
+        name: 'حاسبة غاز العملات الرقمية Gwei',
+        description: 'احسب أسعار الغاز والمعاملات على شبكة إيثيريوم والشبكات الذكية بين Gwei و Ether و Wei.'
+      },
+      'file-header-extractor': {
+        name: 'مستخرج التوقيع الرقمي للمستندات',
+        description: 'حلل البايتات السحرية (Magic Bytes) لتحديد صيغ وأنواع الملفات المجهولة وحمايتها محلياً.'
+      },
+      'yaml-json': {
+        name: 'محول تكوينات YAML ⇄ JSON',
+        description: 'حول ملفات إعداد المنصات السحابية والـ DevOps بين قوالب YAML وصيغ JSON المرنة.'
+      },
+      'toml-json': {
+        name: 'محول ملفات TOML الكارغو إلى JSON',
+        description: 'حول إعدادات لغات البرمجة Rust و Python من TOML إلى قيم JSON المهيكلة.'
+      },
+      'url-parser': {
+        name: 'محلل الروابط ومعايير UTM التسويقية',
+        description: 'فكك الروابط المعقدة وافصل عناصر الاستعلام (Query Parameters) ومحركات التتبع بالتفصيل.'
+      },
+      'unicode-lookup': {
+        name: 'كاشف أحرف اليونيكود والمساحات المخفية',
+        description: 'ابحث واكتشف الرموز غير المرئية أو النصوص الخبيثة والمساحات الصفرية محلياً.'
+      },
+      'html-markdown': {
+        name: 'محول نصوص HTML إلى Markdown',
+        description: 'حول أكواد وتنسيقات الصفحات HTML إلى نصوص ماركداون بسيطة ومقروءة وبالعكس دورياً.'
+      },
+      'csv-ascii': {
+        name: 'محول جداول CSV إلى جداول ASCII',
+        description: 'حوّل منسقات جداول البيانات الإكسل إلى رسوم نصية من نوع ASCII أو قوالب ماركداون برمجية.'
+      },
+      'chmod-translator': {
+        name: 'مترجم الصلاحيات والمستخدمين Chmod',
+        description: 'ترجم أكواد صلاحيات نظم لينكس ويونكس (مثل 755) إلى تفاصيل تصاريح قراءة وكتابة وتمثيل.'
+      },
+      'pdf-to-word': {
+        name: 'محاكي باني مستندات PDF إلى Word',
+        description: 'استخرج النصوص وحلل فقرات ملفات PDF وحولها إلى مسودة مستندات Word و DOC قابلة للتعديل.'
+      },
+      'word-to-markdown': {
+        name: 'مستخرج نصوص Word إلى Markdown',
+        description: 'استخلص النصوص والتبويبات من ملفات Word الكبيرة (Docx) وصغها في قالب ماركداون نظيف ميسر.'
+      },
+      'json-to-excel': {
+        name: 'محول JSON المركب للجداول المسطحة',
+        description: 'قم بتسوية وتسطيح مصفوفات JSON الفرعية والمعقدة إلى جداول بيانات مفرودة للإكسل والتحميل.'
+      },
+      'hex-rgb-visualizer': {
+        name: 'جسر تمثيل الألوان والأطياف HEX ⇄ RGB',
+        description: 'تفاعل مع عينات الألوان والرموز الست عشرية وقارنها بأطياف HSL و RGBA للويب.'
+      },
+      'css-to-tailwind': {
+        name: 'مترجم أكواد CSS إلى فئات Tailwind',
+        description: 'اكتب كود CSS التقليدي واحصل فوراً على الفئة (Utility Class) المقابلة له في إطار عمل Tailwind.'
+      },
+      'img-format-inspector': {
+        name: 'محلل ومقارن أحجام ضغط الصور',
+        description: 'قارن أحجام الصور الافتراضية وصيغها (PNG, JPEG, WebP, AVIF) بشكل ديناميكي مع درجات الضغط والوضوح.'
+      },
+      'pdf-text-extractor': {
+        name: 'حاصد ومستخرج نصوص PDF محلياً',
+        description: 'افصل وعزز استخراج النصوص المطبوعة داخل مستندات PDF دون رفعها لأي خادم للحفاظ على السرية.'
+      },
+      'base-multi-encoder': {
+        name: 'التشفير المتعدد Base32 / Base58 / Base85',
+        description: 'شفر النصوص والبيانات إلى التنسيقات البرمجية المتقدمة المستخدمة في البيتكوين والـ Git.'
+      },
+      'hex-utf8': {
+        name: 'مترجم السداسي عشر HEX إلى نصوص UTF-8',
+        description: 'استقبل كتل البايتات في هيئة سداسية عشرية واعرض ما تحتويه من كلمات ونصوص مقروءة.'
+      },
+      'xml-yaml': {
+        name: 'محول سحب البيانات XML إلى YAML',
+        description: 'سهّل تصفح السجلات القديمة وحول بايتات XML إلى ملفات إعداد وتطوير في صيغة YAML الودية.'
+      },
+      'cidr-subnet': {
+        name: 'محلل الشبكات وحساب أقسام CIDR',
+        description: 'خطط النطاقات والأطراف الفرعية للشبكات وعناوين الـ IP واحسب الأجهزة المتاحة لكل قناع.'
+      },
+      'gzip-simulator': {
+        name: 'محاكي نسب ضغط ملفات Gzip',
+        description: 'ألصق نصوصك البرمجية لتتوقع المنسق الصافي وحجم الوفر المحرز محلياً عند الضغط بـ Gzip.'
+      },
+      'morse-nato': {
+        name: 'مفسر شفرة مورس والأبجدية العسكرية NATO',
+        description: 'استمع وحول العبارات إلى نغمات وصوتيات شفرة مورس أو تهجئة الناتو الصوتية للاتصال اللاسلكي.'
+      },
+      'svg-react-transformer': {
+        name: 'محول كود رسوم الـ SVG إلى مكونات React',
+        description: 'نظف مسارات رسوم المتجهات SVG وحولها فوراً لكود React JSX نظيف يدعم التموضع الحركي.'
+      },
+      'sql-ddl-to-json': {
+        name: 'مترجم هياكل الجداول SQL DDL إلى JSON',
+        description: 'أدخل استعلامات إنشاء الجداول (Create Table) وصدرها في هيئة تراكيب ومخططات كتل بيانات JSON.'
+      },
+      'color-contrast-wcag': {
+        name: 'مدقق تباين الألوان والوصول الشامل WCAG',
+        description: 'تأكد من سهولة قراءة نصوص موقعك وافحص معدلات التباين بين الخط والخلفية تبعاً لمعايير الإتاحة العالمية.'
+      },
+      'word-counter': {
+        name: 'عداد الكلمات والإحصاء اللغوي المتقدم',
+        description: 'افحص جودة وإحصاء مستنداتك بحساب دقيق لعدد الحروف والفقرات وسرعة القراءة وتكرار الاصطلاحات والكلمات.'
+      },
+      'text-diff': {
+        name: 'مقارن الفروق بين النصوص والملفات',
+        description: 'قارن بين مسودتين أو بنود قانونية واعرض الاختلافات والتعديلات سطراً بسطر وحرفاً بحرف فورياً.'
+      },
+      'html-entity': {
+        name: 'مرمّز ومحلل كتل الرموز البرمجية HTML',
+        description: 'حول الأحرف المحفوظة في لغة HTML إلى كيانات آمنة مع حجز تشفير النصوص البرمجية.'
+      },
+      'markdown-html': {
+        name: 'محرر ومعاين الماركداون المباشر',
+        description: 'اكتب نصوص ماركداون بشكل طبيعي وشاهد النتيجة تظهر كصفحة إنترنت HTML أنيقة تفاعلية.'
+      },
+      'svg-optimizer': {
+        name: 'محسن ومنظف ملفات المتجهات SVG',
+        description: 'اضغط حجم رسومات SVG واحذف البيانات الوصفية غير المطلوبة لزيادة سرعة تحميل صفحات الويب.'
+      },
+      'regex-tester': {
+        name: 'مدقق ومحلل التعبيرات النمطية RegEx',
+        description: 'اكتب واختبر أنماط البحث المتقدمة في النصوص مع تلوين وتوجيه دقيق للمطابقات ومجموعات الالتقاط.'
+      },
+      'color-palette': {
+        name: 'مصمم ومنسق لوحات الألوان والسمات',
+        description: 'ابنِ سمات لونية جذابة لمشروعك وافحص تآلف الألوان الخمسة وصدر رموزها للتطوير.'
+      },
+      'glassmorphism': {
+        name: 'مولد تأثير الزجاج المغشى Glassmorphism',
+        description: 'تلاعب بمستويات الضبابية والتشتيت لتوليد وتحميل رموز CSS الحديثة ذات الطابع الزجاجي الأنيق.'
+      },
+      'flexbox-grid': {
+        name: 'بيئة تصميم ومحاكاة Flexbox و Grid',
+        description: 'تدرب وصمم هياكل المواقع تفاعلياً عبر استعراض سلوك المحاذاة والتقسيم في CSS الحديث للويب.'
+      },
+      'favicon-generator': {
+        name: 'مولد ومصمم أيقونات المواقع المفضلة Favicon',
+        description: 'صدر بأبعاد مناسبة أيقونات متصفحك وصور لوحات المفاتيح والأيقونات الجاهزة من كلمات ومجسمات مخصصة.'
+      },
+      'hex-rgb-cmyk': {
+        name: 'محول مساحات الألوان والطباعة CMYK',
+        description: 'تداول وتحول قيم الصبغات بين النمذجة الرقمية للشاشات وصيغ الطباعة الورقية بصبغات دقيقة.'
+      },
+      'qr-generator': {
+        name: 'صانع ومولد رموز الاستجابة السريعة QR',
+        description: 'ولد كودات QR متميزة لتشفير الروابط الطويلة أو كلمات سر شبكات المودم والواي فاي بطباعة فورية.'
+      },
+      'meeting-agenda': {
+        name: 'منظم ومخطط أجندة وجداول الاجتماعات',
+        description: 'اضبط تتابع اجتماعات فريقك وقسم أزمنة المداخلات وتوقيت الأهداف لتسريع إنجاز القرارات.'
+      },
+      'project-timeline': {
+        name: 'معاين ومخطط جداول جانت الزمنية',
+        description: 'ابنِ خطة وجدول زمني لمهام مشروعكم ومراحل التسليم مع مسار رسومي ميسر.'
+      },
+      'daily-standup': {
+        name: 'منشئ تقارير ومداخلات الوقوف اليومية',
+        description: 'اجمع واكتب التحديثات الخاصة بك (ما تم إنجازه، خطة اليوم، والمعوقات) لتقديمها بسلاسة لفريق البرمجة.'
+      },
+      'ai-weekly-report': {
+        name: 'ملخص ومترجم ملاحظاتك لتقارير أسبوعية',
+        description: 'صغ ملاحظات العمل العشوائية وحولها لملخصات أسبوعية أنيقة تضمن رضا واطلاع أصحاب المصلحة.'
+      },
+      'finance-compound': {
+        name: 'مخطط العوائد السنوية والفائدة المركبة',
+        description: 'احسب النمو المتسارع لمدخراتك وأموالك بدلالة تراكم الفوائد والإضافات الدورية المجدولة.'
+      },
+      'unit-ratio-mixer': {
+        name: 'حاسبة النسب وخلط المقادير والتخفيف',
+        description: 'اضبط تناسب المقادير ومجموع النِسب الدقيقة وعمليات الخلط والجرعات المتقاربة بالرياضيات.'
+      },
+      'cryptography-hasher': {
+        name: 'مولد التشفير وخلاصة البصمات MD5/SHA',
+        description: 'أنتج هضمًا آمنًا وخلاصات بصمات التحقق الرقمية كمعايير SHA-256 و MD5 محلياً دون رفع للنصوص.'
+      },
+      'color-palette-extractor': {
+        name: 'مستخرج لوحة الألوان من الصور',
+        description: 'ارفع أي صورة في جهازك ودع الخوارزمية تفصل وتسترجع الصبغات السائدة والدرجات المقترحة فوراً.'
+      },
+      'protobuf-json': {
+        name: 'محول صيغ Protobuf المتقدمة إلى JSON',
+        description: 'تداول وفكك رسائل Google Protocol Buffers وحولها لكود وسجلات JSON مفهومة لتبسيط التطوير.'
+      },
+      'dns-record-parser': {
+        name: 'منسق ومفسر سجلات النطاق وحزم DNS',
+        description: 'فك طلاسم وتراكيب نطاقات الإنترنت وسجلات الاستضافة (A, CNAME, MX) في واجهة بصرية توضيحية.'
+      },
+      'binary-image-viewer': {
+        name: 'مجمع وسينثسيزر الصور من الكود الثنائي',
+        description: 'أعد تمثيل وبناء الصور ومصفوفات اللوحات الفنية انطلاقاً من قيم كتل البيانات والنبضات الثنائية.'
+      },
+      'nginx-config-explainer': {
+        name: 'مفسر وموجه ملفات إعداد خوادم Nginx',
+        description: 'فكك وفصل قواعد توجيه سيرفر Nginx وتمرير طلبات الاستضافة وحواجز الحماية بسهولة.'
+      },
+      'user-agent-parser': {
+        name: 'محلل ومفسر سلاسل وكيل المستخدم الممتدة',
+        description: 'افحص تفاصيل متصفحك، نوع النواة، المعالج، ونظام التشغيل بالكامل من نص الـ User Agent الممرر.'
+      },
+      'semver-checker': {
+        name: 'مقيم نطاقات الترقيم والإصدارات SemVer',
+        description: 'افحص نطاقات التحديث لملفات الـ package ومطابقتها لقواعد الإصدار الدلالي لبيئة عمل العقد.'
+      },
+      'sql-formatter': {
+        name: 'مهذب ومجمل استعلامات قواعد البيانات SQL',
+        description: 'رتب وهذب العبارات المعقدة وكود SQL للوحات وعمليات البيانات بتنسيق ملون فائق الوضوح.'
+      },
+      'text-anonymizer': {
+        name: 'مطهّر ومعقم البيانات الحساسة العشوائية',
+        description: 'امسح وعقم الكلمات الحساسة والأسماء وأرقام الهواتف أو كلمات السر من نصوص العمل والأكواد قبل مشاركتها.'
+      },
+      'word-scrambler': {
+        name: 'محلل تجمعات الرموز وحل حروف الكلمات',
+        description: 'حلل ترتيب مجموعات الحروف لتوقع الكلمات المحتملة من الحروف العشوائية لتسهيل صناعة الأنماط.'
+      },
+      'lorem-ipsum': {
+        name: 'ولد نصوص لوريم إيبسوم الحشو التجريبي',
+        description: 'أنتج فقرات وعبارات حشوية لتجربة هياكل المدونات ومقاطع النشر المظهرية بدون ضجيج.'
+      },
+      'svg-pattern-generator': {
+        name: 'باني ومصمم نقشات المتجهات المتصلة SVG',
+        description: 'صمم لوحات وخلفيات هندسية متكررة ومتشابكة بنقوش متكاملة لتصدرها أكواداً ورسومات في ثوانٍ.'
+      },
+      'css-shadow-creator': {
+        name: 'مصمم ومنتج كتل الظلال المعقدة CSS',
+        description: 'ابنِ طبقات متعددة من الظلال الطبيعية الناعمة والعميقة مع توليد الأكواد المقابلة لتسهيل محاكاة الأبعاد.'
+      },
+      'github-readme-designer': {
+        name: 'مصمم ومنشئ ملفات README للغيت هاب',
+        description: 'صمم صفحات سير وميزات حسابك الشخصي على GitHub بشكل مرئي وطباعة كود Markdown جاهز.'
+      },
+      'elevator-pitch': {
+        name: 'منشئ خطابات المصعد والتعريف الخاطف',
+        description: 'نظم مسيرتك ومشاريعكم في فقرة من نصف دقيقة كفيلة بإقناع مستثمري الأعمال في دقيقة واحدة.'
+      },
+      'weekly-status': {
+        name: 'مصمم وصائغ التقارير والوضعيات الأسبوعية',
+        description: 'حول الكلمات المتناثرة إلى تقرير حالة أسبوعي رسمي متموضع جاهز للإرسال لإدارتكم.'
+      },
+      'breakeven-calc': {
+        name: 'حاسبة نقطة التعادل والاتزان المالي',
+        description: 'حدد حجم المبيعات ونقاط التسعير المطلوبة لتغطية كافة التكاليف وتحقيق هوامش الربحية المنشودة.'
+      },
+      'savings-profit': {
+        name: 'حاسبة فوائد التوفير والودائع بعد الضريبة',
+        description: 'احسب الأرباح المتوقعة لودائع المدخرات مع مراعاة اقتطاعات الضرائب والرسوم المالية المصرفية الصافية.'
       }
     };
 
@@ -458,6 +738,8 @@ export function AppContent() {
       description: translatedDesc
     };
   };
+
+  const activeTool = useMemo(() => selectedTool ? translateTool(selectedTool, language) : null, [selectedTool, language]);
 
   const getTranslatedBlock = (block: typeof DASHBOARD_BLOCKS[0], isRtl: boolean) => {
     if (!isRtl) return block;
@@ -1777,7 +2059,7 @@ export function AppContent() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {TOOLS.slice(0, 4).map(tool => (
+                {TOOLS.slice(0, 4).map(t => translateTool(t, language)).map(tool => (
                   <div 
                     key={tool.id}
                     onClick={() => {
@@ -1827,10 +2109,10 @@ export function AppContent() {
                 <div className="flex justify-between items-center pb-4 border-b border-slate-200 dark:border-slate-800/60 mb-5 flex-wrap gap-2">
                   <div className="flex items-center gap-2.5">
                     <span className="inline-block px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-indigo-505/10 text-indigo-600 dark:text-indigo-300 border border-indigo-505/15">
-                      {language === 'ar' ? `وحدة ${getTranslatedCategoryName(selectedTool.category, language)}` : `${selectedTool.category.toUpperCase()} UTILITY`}
+                      {language === 'ar' ? `وحدة ${getTranslatedCategoryName(activeTool?.category || selectedTool.category, language)}` : `${(activeTool?.category || selectedTool.category).toUpperCase()} UTILITY`}
                     </span>
                     <span className="text-slate-400 dark:text-slate-650 font-mono text-xs">/</span>
-                    <span className="text-xs text-slate-500 dark:text-slate-400 font-mono font-bold select-all">tools/{selectedTool.id}/index.html</span>
+                    <span className="text-xs text-slate-500 dark:text-slate-400 font-mono font-bold select-all">tools/{activeTool?.id || selectedTool.id}/index.html</span>
                   </div>
                   <button
                     onClick={handleCloseTool}
@@ -1845,8 +2127,8 @@ export function AppContent() {
                   <div className="space-y-1.5 max-w-2xl">
                     <div className="flex items-center gap-2 flex-wrap">
                       <h1 className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
-                        <Icon name={selectedTool.icon} className="text-indigo-600 dark:text-indigo-400 shrink-0" size={22} />
-                        {selectedTool.name}
+                        <Icon name={activeTool?.icon || selectedTool.icon} className="text-indigo-600 dark:text-indigo-400 shrink-0" size={22} />
+                        {activeTool?.name || selectedTool.name}
                       </h1>
                       <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold font-mono bg-indigo-505/10 dark:bg-indigo-400/10 text-indigo-700 dark:text-indigo-400 border border-indigo-500/10 dark:border-indigo-400/20 shrink-0">
                         <Icon name="Lock" size={9} />
@@ -1855,7 +2137,7 @@ export function AppContent() {
                       <button
                         onClick={() => {
                           try {
-                            const shareUrl = `${window.location.origin}/tools/${selectedTool.id}`;
+                            const shareUrl = `${window.location.origin}/tools/${activeTool?.id || selectedTool.id}`;
                             navigator.clipboard.writeText(shareUrl);
                             if (language === 'ar') {
                               alert(`📋 تم نسخ الرابط المباشر: ${shareUrl}\n\nشارك هذه الأداة الآمنة التي تعمل بالكامل بدون إنترنت مع زملائك! 🚀`);
@@ -1874,7 +2156,7 @@ export function AppContent() {
                       </button>
                     </div>
                     <p className="text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-400 font-sans">
-                      {selectedTool.description} {language === 'ar' ? 'تعمل هذه الأداة بالكامل داخل متصفحك المحلي لتقديم نتائج فورية دون أي عمليات نقل للخوادم.' : 'This tool runs entirely in your local browser sandbox to provide instant results with zero server transfers.'}
+                      {activeTool?.description || selectedTool.description} {language === 'ar' ? 'تعمل هذه الأداة بالكامل داخل متصفحك المحلي لتقديم نتائج فورية دون أي عمليات نقل للخوادم.' : 'This tool runs entirely in your local browser sandbox to provide instant results with zero server transfers.'}
                     </p>
                   </div>
                   <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
@@ -1918,7 +2200,7 @@ export function AppContent() {
                 </span>
               </div>
               <div className="flex items-center gap-1.5 overflow-x-auto py-1 max-w-full scrollbar-none">
-                {TOOLS.filter(t => t.category === selectedTool.category).map(sibling => (
+                {TOOLS.filter(t => t.category === selectedTool.category).map(t => translateTool(t, language)).map(sibling => (
                   <a
                     key={sibling.id}
                     href={`/tools/${sibling.id}`}
@@ -2161,8 +2443,9 @@ export function AppContent() {
                   </p>
                 ) : (
                   pinnedToolIds.map(pinnedId => {
-                    const toolObj = TOOLS.find(t => t.id === pinnedId);
-                    if (!toolObj) return null;
+                    const rawTool = TOOLS.find(t => t.id === pinnedId);
+                    if (!rawTool) return null;
+                    const toolObj = translateTool(rawTool, language);
                     return (
                       <div
                         key={pinnedId}
@@ -2171,7 +2454,7 @@ export function AppContent() {
                             ? 'bg-slate-950/70 border-slate-800 hover:border-slate-700 text-slate-100' 
                             : 'bg-white border-slate-200 hover:border-slate-300 text-slate-805 shadow-slate-100'
                         }`}
-                        onClick={() => handleSelectTool(toolObj)}
+                        onClick={() => handleSelectTool(rawTool)}
                       >
                         <span className="font-bold relative flex items-center gap-1.5 pr-1.5 border-r border-slate-800/20 dark:border-slate-800/60 leading-none">
                           <Icon name={toolObj.icon} size={12} className="text-blue-500 group-hover/pin:scale-110 transition-transform" />
@@ -2245,7 +2528,7 @@ export function AppContent() {
 
           {/* Grid of high-demand AI tools in focus */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {TOOLS.filter(t => t.id.startsWith('ai-') || t.id.includes('optimizer') || t.id.includes('remover') || t.id.includes('upscaler')).map((tool) => {
+            {TOOLS.filter(t => t.id.startsWith('ai-') || t.id.includes('optimizer') || t.id.includes('remover') || t.id.includes('upscaler')).map(t => translateTool(t, language)).map((tool) => {
               const isPinned = pinnedToolIds.includes(tool.id);
               return (
                 <div
@@ -2312,7 +2595,8 @@ export function AppContent() {
 
           {/* GRID OF GORGEOUS COLOR CATEGORY CARDS */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {DASHBOARD_BLOCKS.map((block) => {
+            {DASHBOARD_BLOCKS.map((rawBlock) => {
+              const block = getTranslatedBlock(rawBlock, language === 'ar');
               const count = TOOLS.filter(t => t.category === block.id).length;
               const matchesSelection = selectedCategory === block.id;
 

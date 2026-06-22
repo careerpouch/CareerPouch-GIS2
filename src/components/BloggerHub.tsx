@@ -4,6 +4,7 @@ import {
   Clock, ArrowLeft, ArrowRight, Share2, Scale
 } from 'lucide-react';
 import { GENERATED_ARTICLES } from '../data/blogGenerator';
+import { AdsterraBanner } from './AdsterraBanner';
 
 export interface Article {
   id: string;
@@ -486,17 +487,35 @@ export function BloggerHub({ isDarkMode, language = 'en' }: BloggerHubProps) {
           {/* Article Main Paragraphs */}
           <div className="space-y-6 max-w-3xl">
             {displayedActiveArt.content.map((para, i) => (
-              <p 
-                key={i} 
-                className={`text-sm sm:text-base ${
-                  isRtl 
-                    ? 'leading-8 font-medium text-slate-200 dark:text-zinc-100 antialiased' 
-                    : 'leading-relaxed text-slate-750 dark:text-slate-200'
-                }`}
-              >
-                {para}
-              </p>
+              <React.Fragment key={i}>
+                <p 
+                  className={`text-sm sm:text-base ${
+                    isRtl 
+                      ? 'leading-8 font-medium text-slate-200 dark:text-zinc-100 antialiased' 
+                      : 'leading-relaxed text-slate-750 dark:text-slate-200'
+                  }`}
+                >
+                  {para}
+                </p>
+                {/* Strategic Adsterra In-Post Banner #1 */}
+                {i === 0 && (
+                  <div className="flex justify-center w-full py-2 my-4">
+                    <AdsterraBanner id={`adsterra-in-post-1-${displayedActiveArt.id}`} width={728} height={90} />
+                  </div>
+                )}
+                {/* Strategic Adsterra In-Post Banner #2 */}
+                {i === 2 && (
+                  <div className="flex justify-center w-full py-2 my-4">
+                    <AdsterraBanner id={`adsterra-in-post-2-${displayedActiveArt.id}`} width={728} height={90} />
+                  </div>
+                )}
+              </React.Fragment>
             ))}
+          </div>
+
+          {/* Strategic Article End Leaderboard Adsterra Banner */}
+          <div className="flex justify-center w-full py-2">
+            <AdsterraBanner id="adsterra-article-end-leaderboard" width={728} height={90} />
           </div>
 
           {/* Official citation box for ALWAYS showing links */}
@@ -587,10 +606,27 @@ export function BloggerHub({ isDarkMode, language = 'en' }: BloggerHubProps) {
                 </button>
               ))}
             </div>
+            
+            {/* Strategic Sidebar Adsterra Banner */}
+            <div className="pt-4 max-w-[250px] mx-auto lg:mx-0">
+              <h4 className={`text-[10px] font-bold font-mono uppercase tracking-widest px-1 mb-2 ${
+                isRtl ? 'text-right' : 'text-left'
+              } ${
+                isDarkMode ? 'text-slate-500' : 'text-slate-400'
+              }`}>
+                {isRtl ? 'إعلان ممول' : 'Sponsored Partner'}
+              </h4>
+              <AdsterraBanner id="adsterra-sidebar-square" width={250} height={250} />
+            </div>
           </div>
 
           {/* RIGHT: ARTICLES SEARCH AND LIST GRID */}
           <div className="lg:col-span-9 space-y-6">
+            
+            {/* Strategic Leaderboard Adsterra Banner above search */}
+            <div className="flex justify-center w-full mb-2">
+              <AdsterraBanner id="adsterra-right-top-leaderboard" width={728} height={90} />
+            </div>
             
             {/* SEARCH INPUT ROW */}
             <div className="relative">

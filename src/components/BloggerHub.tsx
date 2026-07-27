@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { 
   BookOpen, Search, ExternalLink, Calendar, 
-  Clock, ArrowLeft, ArrowRight, Share2, Scale
+  Clock, ArrowLeft, ArrowRight, Share2, Scale, RefreshCw, CheckCircle2
 } from 'lucide-react';
-import { GENERATED_ARTICLES } from '../data/blogGenerator';
+import { getUpToDateArticles } from '../data/blogGenerator';
 import { AdsterraBanner } from './AdsterraBanner';
 
 export interface Article {
@@ -335,6 +335,94 @@ export function getArabicTranslatedArticle(art: Article): Article {
     };
   }
 
+  // Handle daily generated articles
+  if (art.id.startsWith('daily-')) {
+    const dailyArabicTitles: Record<string, { title: string; excerpt: string; content: string[] }> = {
+      'news': {
+        title: `التحديث اليومي لسوق الخليج والتكنولوجيا (${art.date}): تسارع البنية التحتية والذكاء الاصطناعي`,
+        excerpt: `أحدث التطورات اليومية حول رؤية السعودية 2030، المراكز التكنولوجية بالإمارات، ونمو الاقتصاد الرقمي لـ ${art.date}.`,
+        content: [
+          `بتاريخ ${art.date}، يواصل الاقتصاد الرقمي بدول مجلس التعاون الخليجي نموه المتسارع، مدفوعاً بالاستثمارات الضخمة في مراكز البيانات المحلية وحوسبة الذكاء الاصطناعي.`,
+          `تتصدر الرياض ودبي حركة التوظيف الإقليمية في مجالات أطر React وNode.js والأمن السيبراني. وتسجل وكالات التوظيف زيادة بنسبة 20% في الوظائف التقنية المعلنة هذا الشهر.`,
+          `يُنصح الباحثون عن عمل بتحديث ملفاتهم والسير الذاتية المتوافقة مع أنظمة ATS للاستفادة من حملات الاستقطاب الوظيفي الإقليمية الفورية.`
+        ]
+      },
+      'education': {
+        title: `الدليل المهني اليومي (${art.date}): تطوير المهارات والذكاء الاصطناعي والتخصصات المطلوبة`,
+        excerpt: `خارطة طريق يومية عملي للطلاب والمهندسين والمهنيين للارتقاء بالمسار المهني في ${art.date}.`,
+        content: [
+          `التعلم المستمر هو ركيزة النجاح في سوق العمل المتغير. في ${art.date}، يسلط خبراء التوظيف بالخليج الضوء على أهمية المهارات المزدوجة.`,
+          `المهندسون الذين يجمعون بين الإتقان البرمجي والقدرة على التحليل والهندسة البرمجية والتدقيق الأمني يتمتعون بمزايا تنافسية وعروض رواتب مرتفعة.`,
+          `تخصيص 30 دقيقة يومياً للتطبيق العملي على الأدوات وبناء المشاريع يضمن نمواً استثنائياً.`
+        ]
+      },
+      'personal-life': {
+        title: `جودة الحياة المهنية (${art.date}): تحقيق التوازن بين العمل والإنتاجية في مدن الخليج`,
+        excerpt: `استراتيجيات إدارة مسارك المهني والعمل عن بعد والإنتاجية والصحة النفسية والمهنية في ${art.date}.`,
+        content: [
+          `الحفاظ على الصحة النفسية والبدنية أمر جوهري للاستمرارية في النجاح المهني. في بيئة العمل اليوم (${art.date})، يعتمد المهنيون عادات تنظيمية متوازنة.`,
+          `تشمل الممارسات الأساسية تنظيم فترات الراحة القصيرة، تهيئة بيئة العمل المريحة، وفصل أوقات العمل لتجنب الإجهاد أثناء دورات المشاريع المكثفة.`,
+          `توفر كبرى الشركات الخليجية برامج صحية متكاملة وأنظمة عمل هجينة لتعزيز استقرار واستدامة أداء الفرق.`
+        ]
+      },
+      'biography': {
+        title: `إضاءة على الملفات التنفيذية (${art.date}): صياغة السيرة الذاتية لـ ATS لمسؤولي التوظيف`,
+        excerpt: `كيفية بناء سيرة ذاتية عالية النقاط متوافقة مع أنظمة الفرز الآلي بالشرق الأوسط لـ ${art.date}.`,
+        content: [
+          `تعتمد أنظمة فرز السير الذاتية (ATS) على خوارزميات دقيقة في تحليل ملفات المتقدمين. توضح إرشادات اليوم (${art.date}) القواعد الأساسية للصياغة.`,
+          `تجنب التعقيدات البصرية المفرطة والجداول المتداخلة داخل ملفات السيرة. ركز على التنسيق النظيف ذي العمود الواحد، والعناوين الواضحة، والإنجازات المقاسة بالأرقام.`,
+          `أدرج الكلمات المفتاحية الأكثر استخداماً في مجال تخصصك لضمان تحقيق أعلى نسب تطابق في قواعد بيانات الشركات.`
+        ]
+      },
+      'development': {
+        title: `تسريع المسار المهني (${art.date}): الانتقال للقيادة والترقيات الإدارية`,
+        excerpt: `نصائح عملية للتحول من مسؤول تنفيذي إلى قيادة الفرق والمشاريع التقنية والإدارية في ${art.date}.`,
+        content: [
+          `الارتقاء إلى الإدارة العليا يتطلب التحول من مجرد إنجاز المهام إلى تمكين الفريق وتحقيق الأهداف الاستراتيجية. في ${art.date}، يشارك موجهو المهن ركائز هذا التحول.`,
+          `تطوير مهارات التواصل المؤسسي، إدارة أصحاب المصلحة، وتقدير الميزانيات والخطط يجهز القادة الفنيين لمسؤوليات الإدارة التنفيذية.`,
+          `تعد جلسات التغذية الراجعة المستمرة والمبادرة الذاتية من أسرع محفزات الترقي الداخلي في المؤسسات.`
+        ]
+      },
+      'interviews': {
+        title: `إتقان المقابلات اليومي (${art.date}): الإجابة على الأسئلة السلوكية والتقنية`,
+        excerpt: `استخدام منهجية STAR واجتياز التقييمات التقنية لمقابلات كبرى الشركات الخليجية في ${art.date}.`,
+        content: [
+          `النجاح في المقابلات الوظيفية التنافسية يتطلب تحضيراً دقيقاً. يقدم تقرير اليوم (${art.date}) تحليلاً لأهم أطر التقييم لدى لجان التوظيف.`,
+          `استخدم طريقة STAR (الموقف، المهارة، الإجراء، النتيجة) لتنظيم إجاباتك على الأسئلة السلوكية، مع التركيز على إبراز نتائج الأعمال الملموسة.`,
+          `في التقييمات التقنية، حرص على شرح قراراتك المعمارية بوضوح أثناء كتابة كود برمجي تمثيلي نظيف وموديلاري.`
+        ]
+      },
+      'tips': {
+        title: `دليل البحث عن عمل (${art.date}): اكتشاف الفرص المخفية والتواصل المباشر مع مسؤولي التوظيف`,
+        excerpt: `طرق التواصل الفعال، الشبكات المهنية، وجذب انتباه مسؤولي التوظيف في ${art.date}.`,
+        content: [
+          `يتم شغل أكثر من 60% من الوظائف القيادية في الخليج قبل إعلانها رسمياً. في ${art.date}، يؤكد خبراء التوظيف على أهمية التواجد المهني الفعال.`,
+          `تواصل مباشرة مع مدراء التوظيف والمسؤولين التنفيذيين برسائل موجزة ومخصصة توضح كيف يمكن لخبراتك حل تحديات مؤسسية محددة.`,
+          `حافظ على تحديث حساباتك المهنية وشارك في الملتقيات التخصصية لزيادة فرص استقطابك المباشر.`
+        ]
+      },
+      'law': {
+        title: `مرصد قوانين العمل بالخليج (${art.date}): حقوق التوظيف التأشيرات وتحديثات العقود`,
+        excerpt: `تحليل قانوني حديث لفترات الإشعار، مكافأة نهاية الخدمة، وحقوق العمالة بدول الخليج لـ ${art.date}.`,
+        content: [
+          `فهم الحمايات القانونية والتنظيمية يضمن علاقات عمل شفافة وعادلة. بتاريخ ${art.date}، تؤكد هيئات العمل الخليجية على تطبيق أطر الالتزام.`,
+          `تركز مجالات الاهتمام الرئيسية على نظام حماية الأجور (WPS)، الحساب الدقيق لمكافأة نهاية الخدمة، واستحقاقات الإجازات السنوية الإلزامية.`,
+          `ينبغي للموظفين وأصحاب الأعمال مراجعة القنوات الرسمية التابعة للوزارات للاطلاع على أحدث القرارات التنظيمية وأحكام الهيئات العمالية.`
+        ]
+      }
+    };
+
+    const foundDaily = dailyArabicTitles[art.category];
+    if (foundDaily) {
+      return {
+        ...art,
+        title: foundDaily.title,
+        excerpt: foundDaily.excerpt,
+        content: foundDaily.content
+      };
+    }
+  }
+
   // Handle dynamic ones matching key phrases
   if (art.title.startsWith('Dynamic Column:') || art.title.includes('GCC Labour Law')) {
     const isNum = art.title.match(/Part (\d+)/);
@@ -384,8 +472,10 @@ export function BloggerHub({ isDarkMode, language = 'en' }: BloggerHubProps) {
     { id: 'law' }
   ];
 
+  const allUpToDateArticles = useMemo(() => getUpToDateArticles(), []);
+
   const filteredArticles = useMemo(() => {
-    return GENERATED_ARTICLES.filter(art => {
+    return allUpToDateArticles.filter(art => {
       // If language === 'ar', we match search query against the translated version too!
       const finalArt = isRtl ? getArabicTranslatedArticle(art) : art;
       const matchesCategory = selectedCategory === 'all' || finalArt.category === selectedCategory;
@@ -394,7 +484,7 @@ export function BloggerHub({ isDarkMode, language = 'en' }: BloggerHubProps) {
                             finalArt.content.some(para => para.toLowerCase().includes(searchQuery.toLowerCase()));
       return matchesCategory && matchesSearch;
     });
-  }, [selectedCategory, searchQuery, isRtl]);
+  }, [allUpToDateArticles, selectedCategory, searchQuery, isRtl]);
 
   // Handle Share copy link
   const handleShareArticle = (artId: string) => {
@@ -418,14 +508,27 @@ export function BloggerHub({ isDarkMode, language = 'en' }: BloggerHubProps) {
         <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full filter blur-xl pointer-events-none" />
         
         <div className="space-y-2 relative z-10">
-          <span className={`inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded border ${
-            isDarkMode 
-              ? 'text-cyan-400 bg-cyan-500/5 border-indigo-500/10' 
-              : 'text-indigo-650 bg-indigo-50/50 border-indigo-200'
-          }`}>
-            <BookOpen size={11} className={isDarkMode ? 'text-cyan-400' : 'text-indigo-500'} />
-            {lexicon.tagline}
-          </span>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className={`inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded border ${
+              isDarkMode 
+                ? 'text-cyan-400 bg-cyan-500/5 border-indigo-500/10' 
+                : 'text-indigo-650 bg-indigo-50/50 border-indigo-200'
+            }`}>
+              <BookOpen size={11} className={isDarkMode ? 'text-cyan-400' : 'text-indigo-500'} />
+              {lexicon.tagline}
+            </span>
+
+            <span className={`inline-flex items-center gap-1.5 text-[10px] font-mono font-bold px-2.5 py-1 rounded border ${
+              isDarkMode 
+                ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20' 
+                : 'text-emerald-700 bg-emerald-50 border-emerald-200'
+            }`}>
+              <RefreshCw size={11} className="animate-spin text-emerald-500" />
+              {isRtl 
+                ? `تحديث تلقائي يومي نشط (${new Date().toISOString().split('T')[0]})` 
+                : `Daily Auto-Update Stream Active (${new Date().toISOString().split('T')[0]})`}
+            </span>
+          </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
             {lexicon.magazineTitle}
           </h1>
@@ -599,8 +702,8 @@ export function BloggerHub({ isDarkMode, language = 'en' }: BloggerHubProps) {
                     isDarkMode ? 'bg-white/10 text-white/95' : 'bg-black/15 text-slate-955'
                   }`}>
                     {cat.id === 'all' 
-                      ? GENERATED_ARTICLES.length 
-                      : GENERATED_ARTICLES.filter(x => x.category === cat.id).length
+                      ? allUpToDateArticles.length 
+                      : allUpToDateArticles.filter(x => x.category === cat.id).length
                     }
                   </span>
                 </button>

@@ -2047,14 +2047,18 @@ export function AppContent() {
             <div className={`p-6 sm:p-8 rounded-3xl border ${isDarkMode ? 'bg-slate-950/40 border-slate-800' : 'bg-slate-50/50 border-slate-205'}`}>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
                 <div>
-                  <h3 className="text-lg font-black tracking-tight font-display">⭐ Quick-Launch Desk</h3>
-                  <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Start coding or compiling immediately using our top local sandboxes</p>
+                  <h3 className="text-lg font-black tracking-tight font-display">
+                    {language === 'ar' ? '⭐ منصة التشغيل السريع' : '⭐ Quick-Launch Desk'}
+                  </h3>
+                  <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+                    {language === 'ar' ? 'ابدأ البرمجة وتصميم مستنداتك فوراً عبر أكثر الأدوات شعبية محلياً' : 'Start coding or compiling immediately using our top local sandboxes'}
+                  </p>
                 </div>
                 <button 
                   onClick={() => navigate('/tools')}
                   className="text-xs font-bold text-indigo-600 hover:underline flex items-center gap-1 self-start sm:self-auto cursor-pointer"
                 >
-                  View all {jumpingCount}+ tools <Icon name="ArrowUpRight" size={13} />
+                  {language === 'ar' ? `عرض جميع الأدوات الـ ${jumpingCount}+` : `View all ${jumpingCount}+ tools`} <Icon name="ArrowUpRight" size={13} />
                 </button>
               </div>
 
@@ -2084,7 +2088,7 @@ export function AppContent() {
                     </p>
 
                     <span className="text-[9px] font-mono tracking-wider font-extrabold uppercase text-indigo-600 dark:text-indigo-400 flex items-center gap-1 self-start">
-                      Start Tool <Icon name="ArrowRight" size={10} />
+                      {language === 'ar' ? 'ابدأ الأداة' : 'Start Tool'} <Icon name="ArrowRight" size={10} />
                     </span>
                   </div>
                 ))}
@@ -2349,7 +2353,9 @@ export function AppContent() {
             >
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
               <Icon name="Lightbulb" size={13} className="text-amber-500" />
-              <span>Can't find a tool? Request a customized offline tool</span>
+              <span>
+                {language === 'ar' ? 'لم تجد الأداة المطلوبة؟ اطلب أداة مخصصة تعمل بدون إنترنت' : "Can't find a tool? Request a customized offline tool"}
+              </span>
               {userRequests.length > 0 && (
                 <span className="flex h-2 w-2 relative">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -2515,14 +2521,14 @@ export function AppContent() {
             <div className="space-y-1">
               <span className="text-[10px] uppercase font-mono tracking-widest font-black text-indigo-600 dark:text-cyan-400 flex items-center gap-1.5 leading-none">
                 <span className="w-2 h-2 rounded-full bg-indigo-500 animate-ping inline-block" />
-                Featured Intelligence Deck
+                {language === 'ar' ? 'مجموعة أدوات الذكاء المتميزة' : 'Featured Intelligence Deck'}
               </span>
               <h3 className="text-xl font-bold tracking-tight text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
-                ⚡ AI & Premium Spotlight Hub
+                {language === 'ar' ? '⚡ محور التميز والذكاء المهني المتميز' : '⚡ AI & Premium Spotlight Hub'}
               </h3>
             </div>
             <span className="self-start md:self-auto px-3 py-1 bg-indigo-500/10 text-indigo-600 dark:text-cyan-400 font-mono text-[10px] font-extrabold uppercase tracking-wider rounded-full border border-indigo-500/20">
-              ⚡ Free Local Acceleration
+              {language === 'ar' ? '⚡ تسريع محلي مجاني' : '⚡ Free Local Acceleration'}
             </span>
           </div>
 
@@ -2572,9 +2578,9 @@ export function AppContent() {
                   </div>
 
                   <div className="mt-4 pt-3.5 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[9px] font-mono uppercase text-slate-400 dark:text-slate-500 font-bold">
-                    <span>{tool.category} utility</span>
+                    <span>{language === 'ar' ? `وحدة ${getTranslatedCategoryName(tool.category, language)}` : `${tool.category} utility`}</span>
                     <span className="text-indigo-505 dark:text-cyan-405 font-extrabold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                      Open <Icon name="ArrowRight" size={9} />
+                      {language === 'ar' ? 'دخول الأداة' : 'Open'} <Icon name="ArrowRight" size={9} />
                     </span>
                   </div>
                 </div>
@@ -2588,9 +2594,11 @@ export function AppContent() {
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-bold tracking-tight text-slate-800 dark:text-slate-100 flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
-              Primary Category Sandboxes
+              {language === 'ar' ? 'تصنيفات الأدوات الرئيسية' : 'Primary Category Sandboxes'}
             </h3>
-            <span className="text-xs font-mono text-slate-400">{CATEGORIES.length} Suites ready</span>
+            <span className="text-xs font-mono text-slate-400">
+              {language === 'ar' ? `${CATEGORIES.length} تصنيفات جاهزة` : `${CATEGORIES.length} Suites ready`}
+            </span>
           </div>
 
           {/* GRID OF GORGEOUS COLOR CATEGORY CARDS */}
@@ -2627,21 +2635,21 @@ export function AppContent() {
               const getBadgeStyleAndText = () => {
                 switch (block.id) {
                   case 'career':
-                    return { text: 'HIRE READY', style: 'bg-white text-rose-600 border-white' };
+                    return { text: language === 'ar' ? 'جاهز للتوظيف' : 'HIRE READY', style: 'bg-white text-rose-600 border-white' };
                   case 'productivity':
-                    return { text: 'WORKFLOW PRO', style: 'bg-white text-indigo-700 border-white' };
+                    return { text: language === 'ar' ? 'احترافي للعمل' : 'WORKFLOW PRO', style: 'bg-white text-indigo-700 border-white' };
                   case 'math':
-                    return { text: 'ESTIMATOR', style: 'bg-white text-fuchsia-600 border-white' };
+                    return { text: language === 'ar' ? 'حسابات دقيقة' : 'ESTIMATOR', style: 'bg-white text-fuchsia-600 border-white' };
                   case 'converters':
-                    return { text: 'CONVERTER', style: 'bg-white text-orange-600 border-white' };
+                    return { text: language === 'ar' ? 'محول صيغ' : 'CONVERTER', style: 'bg-white text-orange-600 border-white' };
                   case 'text':
-                    return { text: 'TEXT PRO', style: 'bg-white text-blue-600 border-white' };
+                    return { text: language === 'ar' ? 'معالجة نصوص' : 'TEXT PRO', style: 'bg-white text-blue-600 border-white' };
                   case 'design':
-                    return { text: 'DESIGN DRAFT', style: 'bg-white text-emerald-600 border-white' };
+                    return { text: language === 'ar' ? 'مسودة تصميم' : 'DESIGN DRAFT', style: 'bg-white text-emerald-600 border-white' };
                   case 'accounting':
-                    return { text: 'UNIQUE SUITE', style: 'bg-white text-slate-900 border-white' };
+                    return { text: language === 'ar' ? 'مجموعة مالية' : 'UNIQUE SUITE', style: 'bg-white text-slate-900 border-white' };
                   default:
-                    return { text: 'UTILITY', style: 'bg-white text-slate-600 border-white' };
+                    return { text: language === 'ar' ? 'أداة' : 'UTILITY', style: 'bg-white text-slate-600 border-white' };
                 }
               };
 
@@ -2673,7 +2681,7 @@ export function AppContent() {
 
                         {/* Translucent pill badge quantity */}
                         <span className="px-2.5 py-1 bg-white/20 text-white rounded-full text-[11px] font-bold font-mono tracking-wide backdrop-blur-md">
-                          {count} tools
+                          {language === 'ar' ? `${count} أدوات` : `${count} tools`}
                         </span>
                       </div>
                     </div>
@@ -2700,7 +2708,7 @@ export function AppContent() {
                       : 'bg-slate-50/95 border-slate-100 text-slate-650'
                   }`}>
                     <span className="text-slate-400 font-medium flex items-center gap-1">
-                      Featured Tool:
+                      {language === 'ar' ? 'أداة بارزة:' : 'Featured Tool:'}
                     </span>
                     <a
                       href={`/tools/${block.featuredId}`}
@@ -2726,22 +2734,30 @@ export function AppContent() {
           }`}>
             <div className="flex items-center gap-3.5 min-w-[150px]">
               <span className="text-4xl font-extrabold text-indigo-600 tracking-tight font-sans">1M+</span>
-              <span className="text-xs font-bold text-slate-400 leading-tight">Active<br />Clients</span>
+              <span className="text-xs font-bold text-slate-400 leading-tight">
+                {language === 'ar' ? 'مستفيد نشط' : <>Active<br />Clients</>}
+              </span>
             </div>
             <div className="w-px h-8 bg-slate-200 hidden lg:block" />
             <div className="flex items-center gap-3.5 min-w-[150px]">
               <span className="text-4xl font-extrabold text-orange-500 tracking-tight font-sans">10M+</span>
-              <span className="text-xs font-bold text-slate-400 leading-tight">Calculations<br />Solved</span>
+              <span className="text-xs font-bold text-slate-400 leading-tight">
+                {language === 'ar' ? 'عملية منفذة' : <>Calculations<br />Solved</>}
+              </span>
             </div>
             <div className="w-px h-8 bg-slate-200 hidden lg:block" />
             <div className="flex items-center gap-3.5 min-w-[150px]">
               <span className="text-4xl font-extrabold text-rose-500 tracking-tight font-sans">{jumpingCount}+</span>
-              <span className="text-xs font-bold text-slate-400 leading-tight">Sandboxed<br />Modules</span>
+              <span className="text-xs font-bold text-slate-400 leading-tight">
+                {language === 'ar' ? 'أداة ووحدة تخصصية' : <>Sandboxed<br />Modules</>}
+              </span>
             </div>
             <div className="w-px h-8 bg-slate-200 hidden lg:block" />
             <div className="flex items-center gap-3.5 min-w-[150px]">
               <span className="text-4xl font-extrabold text-[#0d9488] tracking-tight font-sans">500K+</span>
-              <span className="text-xs font-bold text-slate-400 leading-tight">Secured<br />Saves</span>
+              <span className="text-xs font-bold text-slate-400 leading-tight">
+                {language === 'ar' ? 'حفظ مؤمن محلياً' : <>Secured<br />Saves</>}
+              </span>
             </div>
           </div>
 
@@ -2756,10 +2772,14 @@ export function AppContent() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200/55 pb-4">
             <div>
               <h3 className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100">
-                {selectedCategory === 'all' ? 'All Live Utility Modules' : `Filtered Category Block: ${CATEGORIES.find(c => c.id === selectedCategory)?.name}`}
+                {selectedCategory === 'all' 
+                  ? (language === 'ar' ? 'جميع الأدوات والوحدات البرمجية النشطة' : 'All Live Utility Modules') 
+                  : (language === 'ar' ? `تصنيف: ${getTranslatedCategoryName(selectedCategory, language)}` : `Filtered Category Block: ${CATEGORIES.find(c => c.id === selectedCategory)?.name}`)}
               </h3>
               <p className="text-xs text-slate-400 mt-1">
-                Showing {filteredTools.length} of {TOOLS.length} modules available
+                {language === 'ar' 
+                  ? `عرض ${filteredTools.length} من أصل ${TOOLS.length} أداة متوفرة` 
+                  : `Showing ${filteredTools.length} of ${TOOLS.length} modules available`}
               </p>
             </div>
 
@@ -2769,7 +2789,7 @@ export function AppContent() {
                 onClick={() => setSelectedCategory('all')}
                 className="self-start text-xs font-mono font-bold bg-blue-50 text-blue-600 hover:bg-blue-100 border border-blue-100 px-3 py-1.5 rounded-xl cursor-pointer"
               >
-                Clear Category Filter (Show All)
+                {language === 'ar' ? 'مسح التصفية (عرض الكل)' : 'Clear Category Filter (Show All)'}
               </button>
             )}
           </div>
@@ -2832,7 +2852,7 @@ export function AppContent() {
                               ? 'text-slate-500 border-slate-800 bg-slate-905/30' 
                               : 'text-slate-550 border-slate-200 bg-slate-50'
                         }`}>
-                          {tool.category}
+                          {getTranslatedCategoryName(tool.category, language)}
                         </span>
                       </div>
                     </div>
@@ -2859,13 +2879,13 @@ export function AppContent() {
                       ? 'border-indigo-950/40 text-slate-405'
                       : isDarkMode ? 'border-slate-850 text-slate-500' : 'border-slate-100 text-slate-400'
                   }`}>
-                    <span>Secure client sandbox</span>
+                    <span>{language === 'ar' ? 'بيئة تشغيل محلية آمنة' : 'Secure client sandbox'}</span>
                     <span className={`font-bold group-hover:translate-x-1.5 transition-transform flex items-center gap-0.5 ${
                       isWorking
                         ? 'text-indigo-300'
                         : isDarkMode ? 'text-indigo-400' : 'text-blue-600'
                     }`}>
-                      Launch <Icon name="ChevronRight" size={10} />
+                      {language === 'ar' ? 'دخول' : 'Launch'} <Icon name="ChevronRight" size={10} />
                     </span>
                   </div>
                 </a>
@@ -2898,7 +2918,7 @@ export function AppContent() {
 
             {filteredTools.length === 0 && (
               <div className="col-span-full text-center py-12 text-slate-500 font-mono text-xs bg-white/20 dark:bg-slate-950/20 rounded-2xl">
-                No matching CareerPouch tools catalogued for your search prompt.
+                {language === 'ar' ? 'لم يتم العثور على أي أدوات تطابق الكلمة التي تبحث عنها في كاريير باوتش.' : 'No matching CareerPouch tools catalogued for your search prompt.'}
               </div>
             )}
           </section>
@@ -2940,33 +2960,49 @@ export function AppContent() {
                 </div>
               </a>
               <p className={`text-sm leading-relaxed max-w-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
-                CareerPouch provides free online conversion, resume writing, templates, and other handy utilities to help you solve problems of all types. All documents both processed and unprocessed remain completely private and secure in your local browser sandbox.
+                {language === 'ar' 
+                  ? 'يقدم كاريير باوتش أدوات مجانية لتحويل الملفات، إنشاء السير الذاتية، حساب المعادلات، وتعديل النصوص. جميع المستندات تعامل بأمان وخصوصية داخل متصفحك المحلي دون أي رفع للخوادم.' 
+                  : 'CareerPouch provides free online conversion, resume writing, templates, and other handy utilities to help you solve problems of all types. All documents both processed and unprocessed remain completely private and secure in your local browser sandbox.'}
               </p>
             </div>
 
             {/* Column 2: Navigate links with colorful hovers */}
             <div className="md:col-span-2 space-y-3">
-              <h4 className={`text-xs font-black tracking-widest uppercase font-mono ${isDarkMode ? 'text-sky-400' : 'text-indigo-900'}`}>Navigate</h4>
+              <h4 className={`text-xs font-black tracking-widest uppercase font-mono ${isDarkMode ? 'text-sky-400' : 'text-indigo-900'}`}>
+                {language === 'ar' ? 'التنقل' : 'Navigate'}
+              </h4>
               <ul className="space-y-2 text-sm text-slate-500 dark:text-slate-400">
                 <li>
-                  <a href="/" onClick={(e) => { e.preventDefault(); handleResetToHome(); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">Home</a>
+                  <a href="/" onClick={(e) => { e.preventDefault(); handleResetToHome(); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">
+                    {language === 'ar' ? 'الرئيسية' : 'Home'}
+                  </a>
                 </li>
                 <li>
-                  <a href="?page=privacy" onClick={(e) => { e.preventDefault(); handleSelectInfoPage('privacy'); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">Privacy Policy</a>
+                  <a href="?page=privacy" onClick={(e) => { e.preventDefault(); handleSelectInfoPage('privacy'); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">
+                    {language === 'ar' ? 'سياسة الخصوصية' : 'Privacy Policy'}
+                  </a>
                 </li>
                 <li>
-                  <a href="?page=tos" onClick={(e) => { e.preventDefault(); handleSelectInfoPage('tos'); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">Terms of Service (TOS)</a>
+                  <a href="?page=tos" onClick={(e) => { e.preventDefault(); handleSelectInfoPage('tos'); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">
+                    {language === 'ar' ? 'شروط الخدمة' : 'Terms of Service (TOS)'}
+                  </a>
                 </li>
                 <li>
-                  <a href="?page=contact" onClick={(e) => { e.preventDefault(); handleSelectInfoPage('contact'); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">Contact Us</a>
+                  <a href="?page=contact" onClick={(e) => { e.preventDefault(); handleSelectInfoPage('contact'); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">
+                    {language === 'ar' ? 'اتصل بنا' : 'Contact Us'}
+                  </a>
                 </li>
 
                 <li>
-                  <a href="?page=about" onClick={(e) => { e.preventDefault(); handleSelectInfoPage('about'); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">About CareerPouch</a>
+                  <a href="?page=about" onClick={(e) => { e.preventDefault(); handleSelectInfoPage('about'); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">
+                    {language === 'ar' ? 'عن كاريير باوتش' : 'About CareerPouch'}
+                  </a>
                 </li>
                 {isDeveloperMode && (
                   <li>
-                    <a href="?page=blog" onClick={(e) => { e.preventDefault(); handleSelectInfoPage('blog'); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">Blogger Auto Hub</a>
+                    <a href="?page=blog" onClick={(e) => { e.preventDefault(); handleSelectInfoPage('blog'); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">
+                      {language === 'ar' ? 'المدونة اليومية الآلية' : 'Blogger Auto Hub'}
+                    </a>
                   </li>
                 )}
               </ul>
@@ -2974,37 +3010,55 @@ export function AppContent() {
 
             {/* Column 3: Tools 1 */}
             <div className="md:col-span-2 space-y-3">
-              <h4 className={`text-xs font-black tracking-widest uppercase font-mono ${isDarkMode ? 'text-sky-400' : 'text-indigo-900'}`}>Tools Catalog</h4>
+              <h4 className={`text-xs font-black tracking-widest uppercase font-mono ${isDarkMode ? 'text-sky-400' : 'text-indigo-900'}`}>
+                {language === 'ar' ? 'فهرس الأدوات' : 'Tools Catalog'}
+              </h4>
               <ul className="space-y-2 text-sm text-slate-500 dark:text-slate-400">
                 <li>
-                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'ats-cv'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">ATS Resume Writer</a>
+                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'ats-cv'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">
+                    {language === 'ar' ? 'صانع السيرة الذاتية ATS' : 'ATS Resume Writer'}
+                  </a>
                 </li>
                 <li>
-                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'cover-letter'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">Cover Letter Maker</a>
+                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'cover-letter'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">
+                    {language === 'ar' ? 'كاتب الخطاب التوضيحي' : 'Cover Letter Maker'}
+                  </a>
                 </li>
                 <li>
-                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'academic-cv'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">Academic CV Builder</a>
+                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'academic-cv'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">
+                    {language === 'ar' ? 'منشئ السيرة الأكاديمية' : 'Academic CV Builder'}
+                  </a>
                 </li>
                 <li>
-                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'qr-generator'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">QR WiFi Badge Generator</a>
+                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'qr-generator'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">
+                    {language === 'ar' ? 'مولد رمز QR للواي فاي' : 'QR WiFi Badge Generator'}
+                  </a>
                 </li>
               </ul>
             </div>
 
-            {/* Column 4: Tools 2 (unnamed but aligned beautifully of PDF tools as listed in screenshot template mapping) */}
+            {/* Column 4: Tools 2 */}
             <div className="md:col-span-2 space-y-2 md:mt-8 text-sm text-slate-500 dark:text-slate-400">
               <ul className="space-y-2">
                 <li>
-                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'job-tracker'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">Job Apps Tracker</a>
+                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'job-tracker'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">
+                    {language === 'ar' ? 'متبع طلبات التوظيف' : 'Job Apps Tracker'}
+                  </a>
                 </li>
                 <li>
-                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'kanban-board'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">Kanban Task Board</a>
+                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'kanban-board'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">
+                    {language === 'ar' ? 'لوحة مهام كانبان' : 'Kanban Task Board'}
+                  </a>
                 </li>
                 <li>
-                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'invoice-generator'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">Invoice PDF Builder</a>
+                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'invoice-generator'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">
+                    {language === 'ar' ? 'منشئ الفواتير PDF' : 'Invoice PDF Builder'}
+                  </a>
                 </li>
                 <li>
-                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'unit-converter'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">Unified Unit Converter</a>
+                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'unit-converter'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">
+                    {language === 'ar' ? 'محول الوحدات الشامل' : 'Unified Unit Converter'}
+                  </a>
                 </li>
               </ul>
             </div>
@@ -3013,16 +3067,24 @@ export function AppContent() {
             <div className="md:col-span-2 space-y-2 md:mt-8 text-sm text-slate-500 dark:text-slate-400">
               <ul className="space-y-2">
                 <li>
-                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'json-validator'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">JSON Schema Validator</a>
+                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'json-validator'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">
+                    {language === 'ar' ? 'مدقق مخطط JSON' : 'JSON Schema Validator'}
+                  </a>
                 </li>
                 <li>
-                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'jwt-inspector'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">JWT Token Inspector</a>
+                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'jwt-inspector'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">
+                    {language === 'ar' ? 'محلل رموز JWT' : 'JWT Token Inspector'}
+                  </a>
                 </li>
                 <li>
-                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'glassmorphism'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">Glassmorphism Styles</a>
+                  <a href="#" onClick={(e) => { e.preventDefault(); const t = TOOLS.find(x => x.id === 'glassmorphism'); if(t) handleSelectTool(t); }} className="hover:text-blue-600 dark:hover:text-sky-300 transition-colors font-medium">
+                    {language === 'ar' ? 'أنماط الزجاج المضبب CSS' : 'Glassmorphism Styles'}
+                  </a>
                 </li>
                 <li>
-                  <a href="#" onClick={(e) => { e.preventDefault(); setSelectedCategory('all'); document.getElementById('toolsSectionHeader')?.scrollIntoView({ behavior: 'smooth' }); }} className="text-blue-600 dark:text-sky-400 font-extrabold hover:text-blue-700 dark:hover:text-sky-300 transition-colors">Others →</a>
+                  <a href="#" onClick={(e) => { e.preventDefault(); setSelectedCategory('all'); document.getElementById('toolsSectionHeader')?.scrollIntoView({ behavior: 'smooth' }); }} className="text-blue-600 dark:text-sky-400 font-extrabold hover:text-blue-700 dark:hover:text-sky-300 transition-colors">
+                    {language === 'ar' ? 'أدوات أخرى ←' : 'Others →'}
+                  </a>
                 </li>
               </ul>
             </div>
@@ -3031,9 +3093,11 @@ export function AppContent() {
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-slate-200/40 dark:border-slate-800">
             <div className="flex items-center gap-2 text-xs text-slate-400 font-mono">
-              <span>All {TOOLS.length} items executed client-side in secure sandbox memory structures offline.</span>
+              <span>
+                {language === 'ar' ? `جميع عناصر ${TOOLS.length} تعمل محلياً داخل المتصفح بدون إنترنت.` : `All ${TOOLS.length} items executed client-side in secure sandbox memory structures offline.`}
+              </span>
             </div>
-            <p className="text-xs text-slate-400">&copy; {new Date().getFullYear()} CareerPouch. All rights reserved.</p>
+            <p className="text-xs text-slate-400">&copy; {new Date().getFullYear()} CareerPouch. {language === 'ar' ? 'جميع الحقوق محفوظة.' : 'All rights reserved.'}</p>
           </div>
         </div>
       </footer>
@@ -3053,7 +3117,7 @@ export function AppContent() {
                 className="flex items-center gap-1 hover:text-rose-600 dark:hover:text-rose-400 transition-colors uppercase cursor-pointer"
                 title="Dismiss ad banner"
               >
-                <span>Close</span>
+                <span>{language === 'ar' ? 'إغلاق' : 'Close'}</span>
                 <Icon name="X" size={10} />
               </button>
             </div>
@@ -3091,8 +3155,12 @@ export function AppContent() {
                   <Icon name="Lightbulb" size={18} />
                 </div>
                 <div>
-                  <h3 className="text-sm font-black tracking-tight font-sans">Request a Personal Offline Tool</h3>
-                  <p className="text-[10px] text-slate-400">Describe what equations or workflows you need mapped.</p>
+                  <h3 className="text-sm font-black tracking-tight font-sans">
+                    {language === 'ar' ? 'طلب أداة مخصصة تعمل بدون إنترنت' : 'Request a Personal Offline Tool'}
+                  </h3>
+                  <p className="text-[10px] text-slate-400">
+                    {language === 'ar' ? 'اصف المعادلات أو الوظائف التي تريد تنفيذها برمجياً.' : 'Describe what equations or workflows you need mapped.'}
+                  </p>
                 </div>
               </div>
               <button 
@@ -3108,38 +3176,44 @@ export function AppContent() {
               {/* Form block */}
               <form onSubmit={handleCreateRequest} className="space-y-3.5">
                 <div className="space-y-1">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Requested Tool Name</label>
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                    {language === 'ar' ? 'اسم الأداة المطلوبة' : 'Requested Tool Name'}
+                  </label>
                   <input 
                     type="text"
                     required
                     value={reqName}
                     onChange={(e) => setReqName(e.target.value)}
-                    placeholder="e.g. Mortgage Amortization, Weekly Fitness Logger"
+                    placeholder={language === 'ar' ? 'مثال: جدول أقساط التمويل العقاري، متبع التمارين' : 'e.g. Mortgage Amortization, Weekly Fitness Logger'}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-205 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 font-medium text-xs focus:ring-2 focus:ring-indigo-500/30 focus:outline-none"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div className="space-y-1">
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Primary Category</label>
+                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                      {language === 'ar' ? 'التصنيف الرئيسي' : 'Primary Category'}
+                    </label>
                     <select
                       value={reqCat}
                       onChange={(e) => setReqCat(e.target.value)}
                       className="w-full px-3.5 py-2.5 rounded-xl border border-slate-205 dark:border-slate-850 bg-white dark:bg-slate-950 text-xs font-semibold focus:ring-2 focus:ring-indigo-500/30 focus:outline-none"
                     >
-                      <option value="career">Career Builder</option>
-                      <option value="productivity">Productivity Suite</option>
-                      <option value="math">Math & Estimates</option>
-                      <option value="converters">Format Converters</option>
-                      <option value="text">Text Utilities</option>
-                      <option value="design">Design Sandbox</option>
-                      <option value="accounting">Accounting & Finance</option>
-                      <option value="other">Other Unique Idea</option>
+                      <option value="career">{language === 'ar' ? 'السيرة الذاتية والمهن' : 'Career Builder'}</option>
+                      <option value="productivity">{language === 'ar' ? 'إنتاجية الأعمال' : 'Productivity Suite'}</option>
+                      <option value="math">{language === 'ar' ? 'الحسابات والرياضيات' : 'Math & Estimates'}</option>
+                      <option value="converters">{language === 'ar' ? 'محولات الصيغ' : 'Format Converters'}</option>
+                      <option value="text">{language === 'ar' ? 'معالجة النصوص' : 'Text Utilities'}</option>
+                      <option value="design">{language === 'ar' ? 'التصميم والتصميم' : 'Design Sandbox'}</option>
+                      <option value="accounting">{language === 'ar' ? 'المحاسبة والمالية' : 'Accounting & Finance'}</option>
+                      <option value="other">{language === 'ar' ? 'فكرة فريدة أخرى' : 'Other Unique Idea'}</option>
                     </select>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Urgency Level</label>
+                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                      {language === 'ar' ? 'درجة الأهمية' : 'Urgency Level'}
+                    </label>
                     <div className="flex bg-slate-100 dark:bg-slate-950 p-1 rounded-xl border border-slate-205 dark:border-slate-800">
                       {['Standard', 'Urgent'].map(p => (
                         <button
@@ -3152,7 +3226,7 @@ export function AppContent() {
                               : 'text-slate-500 hover:text-slate-300'
                           }`}
                         >
-                          {p}
+                          {language === 'ar' ? (p === 'Standard' ? 'عادي' : 'عاجل') : p}
                         </button>
                       ))}
                     </div>
@@ -3160,13 +3234,15 @@ export function AppContent() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Goal & Custom Functions Details</label>
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                    {language === 'ar' ? 'تفاصيل الهدف والوظائف المطلوبة' : 'Goal & Custom Functions Details'}
+                  </label>
                   <textarea
                     rows={3}
                     value={reqDesc}
                     required
                     onChange={(e) => setReqDesc(e.target.value)}
-                    placeholder="Describe relevant arithmetic equations, inputs you want to calculate, or what formatting needs solving."
+                    placeholder={language === 'ar' ? 'اشرح المعادلة الحسابية أو المدخلات والمخرجات المطلوب حسابها وتنسيقها.' : 'Describe relevant arithmetic equations, inputs you want to calculate, or what formatting needs solving.'}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-205 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 font-medium text-xs focus:ring-2 focus:ring-indigo-500/30 focus:outline-none resize-none leading-relaxed"
                   />
                 </div>
@@ -3175,7 +3251,7 @@ export function AppContent() {
                   type="submit"
                   className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl active:scale-[0.98] transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md shadow-indigo-500/20"
                 >
-                  <Icon name="Check" size={13} /> Submit Design Proposal
+                  <Icon name="Check" size={13} /> {language === 'ar' ? 'إرسال مقترح الأداة' : 'Submit Design Proposal'}
                 </button>
               </form>
 
@@ -3184,25 +3260,27 @@ export function AppContent() {
                 <div className="flex items-center justify-between">
                   <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
                     <Icon name="Activity" size={10} className="text-indigo-400" />
-                    Your Suggestion history status ({userRequests.length})
+                    {language === 'ar' ? `سجل مقترحاتك السابقة (${userRequests.length})` : `Your Suggestion history status (${userRequests.length})`}
                   </h4>
                   {userRequests.length > 0 && (
                     <button 
                       onClick={() => {
-                        if(confirm('Clear suggestion history logs?')) {
+                        if(confirm(language === 'ar' ? 'مسح سجل المقترحات؟' : 'Clear suggestion history logs?')) {
                           setUserRequests([]);
                         }
                       }}
                       className="text-[9px] font-mono font-black text-rose-500 hover:underline"
                     >
-                      Clear All
+                      {language === 'ar' ? 'مسح الكل' : 'Clear All'}
                     </button>
                   )}
                 </div>
 
                 {userRequests.length === 0 ? (
                   <div className="text-center py-5 border border-dashed border-slate-205 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/30 rounded-2xl">
-                    <p className="text-[10px] text-slate-400 font-mono">You haven't requested any custom tools in this session.</p>
+                    <p className="text-[10px] text-slate-400 font-mono">
+                      {language === 'ar' ? 'لم تقم بطلب أي أداة مخصصة خلال هذه الجلسة.' : "You haven't requested any custom tools in this session."}
+                    </p>
                   </div>
                 ) : (
                   <div className="space-y-2 max-h-[160px] overflow-y-auto pr-0.5">
